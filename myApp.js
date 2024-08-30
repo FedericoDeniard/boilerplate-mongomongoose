@@ -36,13 +36,17 @@ let arrayOfPeople = [
 
 const createManyPeople = (arrayOfPeople, done) => {
   Person.create(arrayOfPeople, function (err, data) {
+    // El .create de por si, ejecuta el .save()
     if (err) return done(err);
     done(null, data);
   });
 };
 
 const findPeopleByName = (personName, done) => {
-  done(null /*, data*/);
+  Person.find({ name: personName }, function (err, found) {
+    if (err) return done(err);
+    done(null, found);
+  });
 };
 
 const findOneByFood = (food, done) => {
